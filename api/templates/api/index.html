@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -55,7 +56,7 @@
                     </div>
 
                     {% if item.capa_url %}
-                        <img src="{{ item.capa_url }}" alt="{{ item.musica }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"referrerpolicy="no-referrer">
+                        <img src="{{ item.capa_url }}" alt="{{ item.musica }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" referrerpolicy="no-referrer">
                     {% else %}
                         <svg viewBox="0 0 24 24" width="64" height="64" fill="#555">
                             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>
@@ -67,7 +68,6 @@
                     <h3 class="font-bold text-base truncate mb-1" title="{{ item.musica }}">
                         {{ item.musica }}
                     </h3>
-                    <p class="text-xs text-red-500 break-all">URL: {{ item.capa_url }}</p>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-medium px-2 py-0.5 bg-[#222] text-gray-300 rounded-full">
                             Relevância: {{ item.relevancia }}
