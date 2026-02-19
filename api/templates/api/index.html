@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Spotify Graph - Recomendações</title>
+    <style>
+        /* Ajuste fino para a cor exata do background do Spotify */
+        body {
+            background-color: #121212;
+        }
+        .spotify-card {
+            background-color: #181818;
+            transition: background-color 0.3s ease;
+        }
+        .spotify-card:hover {
+            background-color: #282828;
+        }
+    </style>
+</head>
+<body class="text-white font-sans antialiased">
+
+    <nav class="p-6 bg-black sticky top-0 z-50 flex items-center shadow-2xl">
+        <div class="flex items-center gap-2">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="#1DB954">
+                <circle cx="12" cy="12" r="3"></circle>
+                <circle cx="19" cy="5" r="2"></circle>
+                <circle cx="5" cy="19" r="2"></circle>
+                <line x1="12" y1="12" x2="19" y2="5" stroke="#1DB954" stroke-width="2"></line>
+                <line x1="12" y1="12" x2="5" y2="19" stroke="#1DB954" stroke-width="2"></line>
+            </svg>
+            <h1 class="text-2xl font-bold tracking-tighter">Spotify <span class="text-[#1DB954]">Graph</span></h1>
+        </div>
+    </nav>
+
+    <main class="p-8 max-w-7xl mx-auto">
+        <header class="mb-10">
+            <h2 class="text-4xl font-extrabold mb-2">Boa tarde, {{ dados.usuario_consultado }}</h2>
+            <p class="text-gray-400 text-lg">
+                Geramos <span class="text-white font-semibold">{{ dados.total_recomendacoes }}</span> sugestões exclusivas baseadas nas suas conexões no Neo4j.
+            </p>
+        </header>
+
+        <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {% for item in dados.recomendacoes %}
+            <div class="spotify-card p-4 rounded-xl shadow-lg cursor-pointer group relative">
+                
+                <div class="relative w-full aspect-square mb-4 rounded-md overflow-hidden shadow-2xl bg-[#333] flex items-center justify-center">
+                    
+                    <div class="absolute bottom-3 right-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 bg-[#1DB954] p-4 rounded-full shadow-2xl z-20">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="black">
+                            <path d="M7 6v12l10-6z"></path>
+                        </svg>
+                    </div>
+
+                    {% if item.capa_url %}
+                        <img src="{{ item.capa_url }}" alt="{{ item.musica }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"referrerpolicy="no-referrer">
+                    {% else %}
+                        <svg viewBox="0 0 24 24" width="64" height="64" fill="#555">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>
+                        </svg>
+                    {% endif %}
+                </div>
+
+                <div class="min-h-[64px]">
+                    <h3 class="font-bold text-base truncate mb-1" title="{{ item.musica }}">
+                        {{ item.musica }}
+                    </h3>
+                    <p class="text-xs text-red-500 break-all">URL: {{ item.capa_url }}</p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-medium px-2 py-0.5 bg-[#222] text-gray-300 rounded-full">
+                            Relevância: {{ item.relevancia }}
+                        </span>
+                        <span class="text-[#1DB954] text-xs">● Recomendado</span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full py-20 text-center">
+                <p class="text-gray-500 text-xl">Nenhuma recomendação encontrada para este perfil ainda.</p>
+            </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer class="mt-20 p-10 border-t border-[#282828] text-center text-gray-500 text-sm">
+        <p>Desenvolvido por João Luiz.</p>
+    </footer>
+
+</body>
+</html>
