@@ -35,3 +35,10 @@ WHERE vizinho.id <> eu.id
 MATCH (vizinho)-[:OUVIU|CURTIU]->(recomendacao:Song)
 WHERE NOT (eu)-[:OUVIU|CURTIU]->(recomendacao)
 RETURN recomendacao.titulo AS Musica_Sugerida, count(vizinho) AS Forca_Recomendacao
+
+## 🎨 Interface Visual (Spotify Clone)
+Além da API JSON, o projeto conta com uma interface Front-end construída com **Django Templates** e **Tailwind CSS**.
+
+Para acessar a vitrine visual de recomendações, acesse a rota do player passando o nome do usuário:
+👉 `http://127.0.0.1:8000/api/player/João Luiz/`
+👉 `http://127.0.0.1:8000/api/player/Ana/`
