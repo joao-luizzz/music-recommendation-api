@@ -6,5 +6,5 @@ urlpatterns = [
     path('recomendacoes/<str:nome_usuario>/', RecomendacaoMusicaView.as_view(), name='recomendacoes'),
     
     # NOVA ROTA para o visual estilo Spotify
-    path('player/', home_spotify, name='player'), 
+    path('player/<str:nome_usuario>/', home_spotify, name='player'), 
 ]

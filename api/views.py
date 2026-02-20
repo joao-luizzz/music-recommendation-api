@@ -54,11 +54,11 @@ class RecomendacaoMusicaView(APIView):
             return Response({"erro_na_conexao": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # Função do Player Visual
-def home_spotify(request):
+def home_spotify(request, nome_usuario):
     URI = os.getenv("NEO4J_URI")
     USUARIO = "neo4j"
     SENHA = os.getenv("NEO4J_PASSWORD")
-    nome_alvo = "João Luiz" 
+    nome_alvo = nome_usuario.title() 
 
     QUERY = """
     MATCH (eu:User {nome: $nome})-[:OUVIU|CURTIU]->(gosto_comum:Song)
